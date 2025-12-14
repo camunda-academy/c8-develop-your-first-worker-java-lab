@@ -14,28 +14,40 @@ import io.camunda.zeebe.client.impl.oauth.OAuthCredentialsProviderBuilder;
 
 public class PaymentApplication 
 {
-    private static String CAMUNDA_AUTHORIZATION_SERVER_URL = "https://login.cloud.camunda.io/oauth/token";
+    /*private static String CAMUNDA_AUTHORIZATION_SERVER_URL = "https://login.cloud.camunda.io/oauth/token";
     private static String CAMUNDA_TOKEN_AUDIENCE = "zeebe.camunda.io";
     private static String CAMUNDA_REST_ADDRESS = "https://[REGION].zeebe.camunda.io/[CLUSTER-ID]";
     private static String CAMUNDA_GRPC_ADDRESS = "https://[CLUSTER-ID].[REGION].zeebe.camunda.io:443";
     private static String CAMUNDA_CLIENT_ID = "[CLIENT_ID]";
-    private static String CAMUNDA_CLIENT_SECRET = "[CLIENT_SECRET]";
+    private static String CAMUNDA_CLIENT_SECRET = "[CLIENT_SECRET]";*/
+
+    private static String ZEEBE_REST_ADDRESS = "http://127.0.0.1:8080";
+    private static String ZEEBE_GRPC_ADDRESS = "http://127.0.0.1:26500";
 
     public static void main( String[] args )
     {
-        final OAuthCredentialsProvider credentialsProvider = new OAuthCredentialsProviderBuilder()
+        /*final OAuthCredentialsProvider credentialsProvider = new OAuthCredentialsProviderBuilder()
                 .authorizationServerUrl(ZEEBE_AUTHORIZATION_SERVER_URL)
                 .audience(ZEEBE_TOKEN_AUDIENCE)
                 .clientId(ZEEBE_CLIENT_ID)
                 .clientSecret(ZEEBE_CLIENT_SECRET)
-                .build();
+                .build();*/
+
         try (final ZeebeClient client = ZeebeClient.newClientBuilder()
                 .grpcAddress(URI.create(ZEEBE_GRPC_ADDRESS))
                 .restAddress(URI.create(ZEEBE_REST_ADDRESS))
-                .credentialsProvider(credentialsProvider)
+                .usePlaintext()
                 .build()) {
+        /*ZeebeClient client =
+                ZeebeClient.newClientBuilder()
+                        .gatewayAddress("http://localhost:26500")
+                        .usePlaintext()
+                        .build();*/
 
-            final Map<String, Object> variables = new HashMap<String, Object>();
+
+
+
+        final Map<String, Object> variables = new HashMap<String, Object>();
             variables.put("reference", "C8_12345");
             variables.put("amount", Double.valueOf(100.00));
             variables.put("cardNumber", "1234567812345678");
