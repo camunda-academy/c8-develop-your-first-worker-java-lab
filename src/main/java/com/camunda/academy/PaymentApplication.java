@@ -7,10 +7,10 @@ import java.util.Map;
 
 import com.camunda.academy.handler.CreditCardServiceHandler;
 
-import io.camunda.zeebe.client.ZeebeClient;
-import io.camunda.zeebe.client.api.worker.JobWorker;
-import io.camunda.zeebe.client.impl.oauth.OAuthCredentialsProvider;
-import io.camunda.zeebe.client.impl.oauth.OAuthCredentialsProviderBuilder;
+import io.camunda.client.CamundaClient;
+import io.camunda.client.api.worker.JobWorker;
+import io.camunda.client.impl.oauth.OAuthCredentialsProvider;
+import io.camunda.client.impl.oauth.OAuthCredentialsProviderBuilder;
 
 public class PaymentApplication 
 {
@@ -24,14 +24,14 @@ public class PaymentApplication
     public static void main( String[] args )
     {
         final OAuthCredentialsProvider credentialsProvider = new OAuthCredentialsProviderBuilder()
-                .authorizationServerUrl(ZEEBE_AUTHORIZATION_SERVER_URL)
-                .audience(ZEEBE_TOKEN_AUDIENCE)
-                .clientId(ZEEBE_CLIENT_ID)
-                .clientSecret(ZEEBE_CLIENT_SECRET)
+                .authorizationServerUrl(CAMUNDA_AUTHORIZATION_SERVER_URL)
+                .audience(CAMUNDA_TOKEN_AUDIENCE)
+                .clientId(CAMUNDA_CLIENT_ID)
+                .clientSecret(CAMUNDA_CLIENT_SECRET)
                 .build();
-        try (final ZeebeClient client = ZeebeClient.newClientBuilder()
-                .grpcAddress(URI.create(ZEEBE_GRPC_ADDRESS))
-                .restAddress(URI.create(ZEEBE_REST_ADDRESS))
+        try (final CamundaClient client = CamundaClient.newClientBuilder()
+                .grpcAddress(URI.create(CAMUNDA_GRPC_ADDRESS))
+                .restAddress(URI.create(CAMUNDA_REST_ADDRESS))
                 .credentialsProvider(credentialsProvider)
                 .build()) {
 

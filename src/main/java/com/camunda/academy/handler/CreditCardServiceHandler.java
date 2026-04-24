@@ -5,9 +5,9 @@ import java.util.Map;
 
 import com.camunda.academy.service.CreditCardService;
 
-import io.camunda.zeebe.client.api.response.ActivatedJob;
-import io.camunda.zeebe.client.api.worker.JobClient;
-import io.camunda.zeebe.client.api.worker.JobHandler;
+import io.camunda.client.api.response.ActivatedJob;
+import io.camunda.client.api.worker.JobClient;
+import io.camunda.client.api.worker.JobHandler;
 
 public class CreditCardServiceHandler implements JobHandler {
 
